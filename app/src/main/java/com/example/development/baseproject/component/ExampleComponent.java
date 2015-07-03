@@ -23,6 +23,4 @@ import dagger.Component;
 })
 public interface ExampleComponent {
         public void inject(ExampleActivity exampleActivity);
-        ExampleAdapter provideCategoryAdapter();
-        ExamplePresenter provideCategoryPresenter();
 }
