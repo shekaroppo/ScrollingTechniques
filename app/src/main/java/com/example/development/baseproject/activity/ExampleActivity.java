@@ -34,7 +34,9 @@ public class ExampleActivity extends BaseActivity implements LceView<List<Exampl
     ProgressBar mLoadingView;
     @Bind(R.id.errorView)
     TextView mErrorView;
+    @Inject
     ExamplePresenter mPresenter;
+    @Inject
     ExampleAdapter mAdapter;
 
     @Override
@@ -43,8 +45,7 @@ public class ExampleActivity extends BaseActivity implements LceView<List<Exampl
         setContentView(R.layout.base_main);
         ButterKnife.bind(this);
         ExampleComponent component=DaggerExampleComponent.builder().exampleModule(new ExampleModule(this)).build();
-       mPresenter=component.provideCategoryPresenter();
-        mAdapter=component.provideCategoryAdapter();
+        component.inject(this);
         setUI();
         loadData();
     }

@@ -1,5 +1,6 @@
 package com.example.development.baseproject.component;
 
+import com.example.development.baseproject.activity.ExampleActivity;
 import com.example.development.baseproject.adapter.ExampleAdapter;
 import com.example.development.baseproject.model.ExampleModel;
 import com.example.development.baseproject.module.ExampleModule;
@@ -21,6 +22,7 @@ import dagger.Component;
         ExampleModule.class
 })
 public interface ExampleComponent {
+        public void inject(ExampleActivity exampleActivity);
         ExampleAdapter provideCategoryAdapter();
         ExamplePresenter provideCategoryPresenter();
 }
