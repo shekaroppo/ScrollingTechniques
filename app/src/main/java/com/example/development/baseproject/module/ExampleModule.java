@@ -11,6 +11,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import rx.Observable;
 
 /**
  * Created by Sekhar on 4/8/15.
@@ -38,7 +39,7 @@ public class ExampleModule {
 
     @Provides
     @Singleton
-    public ExamplePresenter provideCategoryPresenter(LceView<List<ExampleModel>> view) {
-        return new ExamplePresenterImpl(view);
+    public ExamplePresenter provideCategoryPresenter(LceView<List<ExampleModel>> view, Observable<List<ExampleModel>> categoryObservable) {
+        return new ExamplePresenterImpl(view, categoryObservable);
     }
 }

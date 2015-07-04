@@ -1,13 +1,8 @@
 package com.example.development.baseproject.component;
 
 import com.example.development.baseproject.activity.ExampleActivity;
-import com.example.development.baseproject.adapter.ExampleAdapter;
-import com.example.development.baseproject.model.ExampleModel;
 import com.example.development.baseproject.module.ExampleModule;
-import com.example.development.baseproject.presenter.ExamplePresenter;
-import com.example.development.baseproject.view.LceView;
-
-import java.util.List;
+import com.example.development.baseproject.module.NetworkModule;
 
 import javax.inject.Singleton;
 
@@ -19,6 +14,7 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {
+        NetworkModule.class,
         ExampleModule.class
 })
 public interface ExampleComponent {

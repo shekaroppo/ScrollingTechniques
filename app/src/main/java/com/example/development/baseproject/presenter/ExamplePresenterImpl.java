@@ -3,12 +3,12 @@ package com.example.development.baseproject.presenter;
 
 import android.util.Log;
 
-import com.example.development.baseproject.datamanager.CategoryDataManager;
 import com.example.development.baseproject.model.ExampleModel;
 import com.example.development.baseproject.view.LceView;
 
 import java.util.List;
 
+import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.subscriptions.CompositeSubscription;
@@ -19,12 +19,12 @@ import rx.subscriptions.CompositeSubscription;
 public class ExamplePresenterImpl implements ExamplePresenter {
 
     private LceView mLceView;
-    private CategoryDataManager mDataManager;
     private CompositeSubscription compositeSubscription;
+    Observable<List<ExampleModel>> mCategoryObservable;
 
-    public ExamplePresenterImpl(LceView mLceView) {
+    public ExamplePresenterImpl(LceView mLceView, Observable<List<ExampleModel>> categoryObservable) {
         this.mLceView = mLceView;
-        mDataManager = new CategoryDataManager();
+        mCategoryObservable = categoryObservable;
     }
 
 
@@ -34,7 +34,7 @@ public class ExamplePresenterImpl implements ExamplePresenter {
             compositeSubscription = new CompositeSubscription();
         }
         mLceView.showProgress();
-        compositeSubscription.add(CategoryDataManager.getCategorys().observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<List<ExampleModel>>() {
+        compositeSubscription.add(mCategoryObservable.observeOn(AndroidSchedulers.mainThread()).subscribe(new Subscriber<List<ExampleModel>>() {
             @Override
             public void onCompleted() {
             }
@@ -51,7 +51,6 @@ public class ExamplePresenterImpl implements ExamplePresenter {
                 mLceView.showContent(categoryModels);
             }
         }));
-
     }
 
     @Override
