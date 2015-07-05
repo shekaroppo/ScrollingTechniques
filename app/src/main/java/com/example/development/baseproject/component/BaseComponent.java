@@ -18,5 +18,9 @@ import dagger.Component;
         NetworkModule.class,
 })
 public interface BaseComponent {
+        /**
+         * This is the way how we can add subcomponent in main component.
+         * ExampleComponent is added to BaseComponent in ExampleActivity
+         */
         ExampleComponent plus(ExampleModule exampleModule);
 }
