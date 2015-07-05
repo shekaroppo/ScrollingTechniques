@@ -10,9 +10,6 @@ import android.widget.TextView;
 import com.example.development.baseproject.BaseApplication;
 import com.example.development.baseproject.R;
 import com.example.development.baseproject.adapter.ExampleAdapter;
-import com.example.development.baseproject.component.DaggerBaseComponent;
-import com.example.development.baseproject.component.DaggerExampleComponent;
-import com.example.development.baseproject.component.ExampleComponent;
 import com.example.development.baseproject.model.ExampleModel;
 import com.example.development.baseproject.module.ExampleModule;
 import com.example.development.baseproject.presenter.ExamplePresenter;
@@ -46,9 +43,7 @@ public class ExampleActivity extends BaseActivity implements LceView<List<Exampl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_main);
         ButterKnife.bind(this);
-        //  BaseApplication.getComponent(this)
-        //ExampleComponent component=DaggerExampleComponent.builder().exampleModule(new ExampleModule(this)).build();
-        // component.inject(this);
+        BaseApplication.getComponent(this).plus(new ExampleModule(this)).inject(this);
         setUI();
         loadData();
     }
@@ -68,11 +63,6 @@ public class ExampleActivity extends BaseActivity implements LceView<List<Exampl
         super.onDestroy();
         mPresenter.unsubscribeFromDataStore();
     }
-
-//    @Override
-//    protected List<Object> getModules() {
-//        return Arrays.<Object>asList(new ExampleModule(this));
-//    }
 
     @Override
     public void showProgress() {

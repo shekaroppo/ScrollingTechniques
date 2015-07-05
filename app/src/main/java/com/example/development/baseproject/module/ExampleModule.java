@@ -3,6 +3,7 @@ import com.example.development.baseproject.adapter.ExampleAdapter;
 import com.example.development.baseproject.model.ExampleModel;
 import com.example.development.baseproject.presenter.ExamplePresenter;
 import com.example.development.baseproject.presenter.ExamplePresenterImpl;
+import com.example.development.baseproject.scope.ActivityScope;
 import com.example.development.baseproject.view.LceView;
 
 import java.util.List;
@@ -26,19 +27,19 @@ public class ExampleModule {
     }
 
     @Provides
-    @Singleton
+    @ActivityScope
     public LceView<List<ExampleModel>> provideLceView() {
         return view;
     }
 
     @Provides
-    @Singleton
+    @ActivityScope
     public ExampleAdapter provideCategoryAdapter() {
         return new ExampleAdapter();
     }
 
     @Provides
-    @Singleton
+    @ActivityScope
     public ExamplePresenter provideCategoryPresenter(LceView<List<ExampleModel>> view, Observable<List<ExampleModel>> categoryObservable) {
         return new ExamplePresenterImpl(view, categoryObservable);
     }

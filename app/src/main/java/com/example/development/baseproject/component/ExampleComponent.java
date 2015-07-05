@@ -2,19 +2,16 @@ package com.example.development.baseproject.component;
 
 import com.example.development.baseproject.activity.ExampleActivity;
 import com.example.development.baseproject.module.ExampleModule;
-import com.example.development.baseproject.module.NetworkModule;
+import com.example.development.baseproject.scope.ActivityScope;
 
-import javax.inject.Singleton;
-
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Created by Shekar on 7/1/15.
  */
 
-@Singleton
-@Component(
-        dependencies = BaseComponent.class,
+@ActivityScope
+@Subcomponent(
         modules = {
         ExampleModule.class
 })
