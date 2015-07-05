@@ -13,8 +13,9 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {
-        NetworkModule.class,
+@Component(
+        dependencies = BaseComponent.class,
+        modules = {
         ExampleModule.class
 })
 public interface ExampleComponent {

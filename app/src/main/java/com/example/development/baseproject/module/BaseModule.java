@@ -23,6 +23,4 @@ public class BaseModule {
     BaseApplication provideBaseApplication() {
         return application;
     }
-
-    ;
 }

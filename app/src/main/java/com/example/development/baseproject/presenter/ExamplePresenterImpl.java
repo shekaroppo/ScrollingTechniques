@@ -56,6 +56,7 @@ public class ExamplePresenterImpl implements ExamplePresenter {
     @Override
     public void unsubscribeFromDataStore() {
         Log.d("TAG", "unsubscribeFromDataStore ");
+        compositeSubscription.unsubscribe();
         compositeSubscription.clear();
         compositeSubscription = null;
     }

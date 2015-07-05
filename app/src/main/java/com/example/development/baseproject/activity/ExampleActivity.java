@@ -7,8 +7,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.development.baseproject.BaseApplication;
 import com.example.development.baseproject.R;
 import com.example.development.baseproject.adapter.ExampleAdapter;
+import com.example.development.baseproject.component.DaggerBaseComponent;
 import com.example.development.baseproject.component.DaggerExampleComponent;
 import com.example.development.baseproject.component.ExampleComponent;
 import com.example.development.baseproject.model.ExampleModel;
@@ -44,8 +46,9 @@ public class ExampleActivity extends BaseActivity implements LceView<List<Exampl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.base_main);
         ButterKnife.bind(this);
-        ExampleComponent component=DaggerExampleComponent.builder().exampleModule(new ExampleModule(this)).build();
-        component.inject(this);
+        //  BaseApplication.getComponent(this)
+        //ExampleComponent component=DaggerExampleComponent.builder().exampleModule(new ExampleModule(this)).build();
+        // component.inject(this);
         setUI();
         loadData();
     }

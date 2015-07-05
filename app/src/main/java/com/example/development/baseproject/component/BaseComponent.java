@@ -1,6 +1,7 @@
 package com.example.development.baseproject.component;
 
 import com.example.development.baseproject.module.BaseModule;
+import com.example.development.baseproject.module.NetworkModule;
 
 import dagger.Component;
 
@@ -9,7 +10,8 @@ import dagger.Component;
  */
 
 @Component(modules = {
-        BaseModule.class
+        BaseModule.class,
+        NetworkModule.class,
 })
 public interface BaseComponent {
 }
