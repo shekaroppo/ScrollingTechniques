@@ -3,6 +3,7 @@ package com.example.development.baseproject.activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,6 +28,10 @@ import butterknife.ButterKnife;
  */
 public class ExampleActivity extends BaseActivity implements LceView<List<ExampleModel>> {
 
+    @Bind(R.id.tabs)
+    View mTabs;
+    @Bind(R.id.topView)
+    RecyclerView mTopView;
     @Bind(R.id.recyclerView)
     RecyclerView mRecyclerView;
     @Bind(R.id.loadingView)
@@ -37,6 +42,8 @@ public class ExampleActivity extends BaseActivity implements LceView<List<Exampl
     ExamplePresenter mPresenter;
     @Inject
     ExampleAdapter mAdapter;
+    private float mTabbarOffset=0;
+    private float mTopViewTopPadding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +60,34 @@ public class ExampleActivity extends BaseActivity implements LceView<List<Exampl
     }
 
     private void setUI() {
+
+        mTopView.setHasFixedSize(true);
+        mTopView.setLayoutManager(new LinearLayoutManager(this));
+        mTopView.setAdapter(mAdapter);
+
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(mTopViewTopPadding==0) {
+                    mTopViewTopPadding = mTabs.getY();
+                }
+                mTabbarOffset+=dy;
+                mTopView.setTranslationY(mTopView.getTranslationY()-dy);
+                mTabs.setTranslationY(-clamp(mTabbarOffset,0,mTopViewTopPadding));
+            }
+        });
+    }
+    public static float clamp(float value, float min,float max) {
+        return Math.min(Math.max(value, min), max);
     }
 
     @Override
