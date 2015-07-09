@@ -26,7 +26,7 @@
         style="@style/block"
         android:layout_marginTop="@dimen/add_item_view_height"
         android:background="@color/primary_dark"
-        android:paddingTop="@dimen/add_item_view_height" />
+         />
 
 
 </FrameLayout>
