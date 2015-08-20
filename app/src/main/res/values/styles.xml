@@ -65,6 +65,15 @@
         <item name="android:layout_width">match_parent</item>
     </style>
 
+    <style name="Theme.DesignDemo" parent="Base.Theme.DesignDemo">
+    </style>
+
+    <style name="Base.Theme.DesignDemo" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#673AB7</item>
+        <item name="colorPrimaryDark">#512DA8</item>
+        <item name="colorAccent">#FF4081</item>
+        <item name="android:windowBackground">@color/window_background</item>
+    </style>
 
     <style name="Widget.CardContent" parent="android:Widget">
         <item name="android:paddingLeft">16dp</item>
@@ -74,4 +83,15 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+
+    <style name="Widget.Philm.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="contentInsetStart">24dp</item>
+    </style>
+
+    <style name="Widget.Philm.Toolbar.Transparent">
+        <item name="android:background">@null</item>
+    </style>
 </resources>

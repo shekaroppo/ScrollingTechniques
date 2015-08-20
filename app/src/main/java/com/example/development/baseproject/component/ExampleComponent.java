@@ -1,6 +1,7 @@
 package com.example.development.baseproject.component;
 
 import com.example.development.baseproject.activity.ExampleActivity;
+import com.example.development.baseproject.activity.FlexibleSpaceToolbarImageScrollViewActivity;
 import com.example.development.baseproject.module.ExampleModule;
 import com.example.development.baseproject.scope.ActivityScope;
 
@@ -26,4 +27,5 @@ public interface ExampleComponent {
      * of Injectable elements available in graph, This is called in ExampleActivity in onCreate
      */
     public void inject(ExampleActivity exampleActivity);
+    public void inject(FlexibleSpaceToolbarImageScrollViewActivity flexibleSpaceToolbarImageScrollViewActivity);
 }
