@@ -3,8 +3,12 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="tabsHeight">48dp</dimen>
+
+
     <dimen name="add_item_view_height">300dp</dimen>
     <dimen name="menu_padding_top">348dp</dimen>
+
+
     <dimen name="movie_detail_pinned_elevation">6dp</dimen>
     <dimen name="movie_detail_fanart_height">224dp</dimen>
     <dimen name="toolbar_margin_start">56dp</dimen>
