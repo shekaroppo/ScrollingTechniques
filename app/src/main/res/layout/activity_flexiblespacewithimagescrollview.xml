@@ -39,11 +39,6 @@
         android:scaleType="centerCrop"
         android:src="@drawable/example" />
 
-    <View
-        android:id="@+id/overlay"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/flexible_space_image_height"
-        android:background="@android:color/transparent" />
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

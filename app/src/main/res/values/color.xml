@@ -11,4 +11,5 @@
     <color name="window_background">#FFFFFF</color>
     <color name="primaryDark">#00796b</color>
     <color name="accentLight">#F4FF81</color>
+    <color name="Transparent">#0fff</color>
 </resources>
