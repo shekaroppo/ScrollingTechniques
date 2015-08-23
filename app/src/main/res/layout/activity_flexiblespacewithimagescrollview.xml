@@ -1,8 +1,5 @@
-<com.example.development.baseproject.basic.ScrimInsetsFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@android:color/transparent"
-    android:fitsSystemWindows="true"
-    app:insetFoeground="@android:color/transparent"
     android:clipToPadding="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -54,7 +51,8 @@
         android:background="@android:color/transparent"
         android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
-        app:theme="@style/Toolbar" />
+        app:theme="@style/Toolbar"
+        android:fitsSystemWindows="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -85,4 +83,4 @@
         android:layout_height="wrap_content"
         android:layout_gravity="left|top"
         android:scaleType="center" />
-</com.example.development.baseproject.basic.ScrimInsetsFrameLayout>
+</FrameLayout>

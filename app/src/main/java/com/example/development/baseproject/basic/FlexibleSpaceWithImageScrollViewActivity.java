@@ -2,15 +2,19 @@
 package com.example.development.baseproject.basic;
 
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +23,7 @@ import com.example.development.baseproject.activity.BaseActivity;
 
 public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity implements ObservableScrollViewCallbacks {
 
-    private View mImageView;
+    private ImageView mImageView;
 
     private static final float MAX_TEXT_SCALE_DELTA = 0.3f;
     private View mOverlayView;
@@ -46,7 +50,7 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
         // Set the padding to match the Status Bar height
         //mToolbarView.setPadding(0, getStatusBarHeight(), 0, 0);
 
-        mImageView = findViewById(R.id.image);
+        mImageView = (ImageView) findViewById(R.id.image);
         mOverlayView = findViewById(R.id.overlay);
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
 
@@ -59,9 +63,9 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
         setTitle(null);
 
 
-        mFlexibleSpaceImageHeight = getResources().getDimensionPixelSize(R.dimen.flexible_space_image_height);
+        mFlexibleSpaceImageHeight = getResources().getDimensionPixelSize(R.dimen.flexible_space_image_height) ;
         mFlexibleSpaceShowFabOffset = getResources().getDimensionPixelSize(R.dimen.flexible_space_show_fab_offset);
-        mActionBarSize = getActionBarSize();
+        mActionBarSize = getActionBarSize()+getStatusBarHeight();
 
         mScrollView.setScrollViewCallbacks(this);
 
@@ -75,6 +79,13 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
         mFabMargin = getResources().getDimensionPixelSize(R.dimen.margin_standard);
         mFab.setScaleX(0);
         mFab.setScaleY(0);
+
+        Bitmap bitmap = ((BitmapDrawable) mImageView.getDrawable()).getBitmap();
+        Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+            public void onGenerated(Palette palette) {
+                applyPalette(palette);
+            }
+        });
 
         ScrollUtils.addOnGlobalLayoutListener(mScrollView, new Runnable() {
             @Override
@@ -94,6 +105,12 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
             }
         });
     }
+
+    private void applyPalette(Palette palette) {
+        int primaryDark = getResources().getColor(R.color.primary_dark);
+        WindowCompatUtils.setStatusBarcolor(getWindow(), palette.getDarkMutedColor(primaryDark));
+    }
+
     // A method to find height of the status bar
     public int getStatusBarHeight() {
         int result = 0;
@@ -117,9 +134,6 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
         // Translate overlay and image
         float flexibleRange = mFlexibleSpaceImageHeight - mActionBarSize;
         int minOverlayTransitionY = mActionBarSize - mOverlayView.getHeight();
-        Log.d("-scrollY===",-scrollY+"");
-        Log.d("minOverlayTY===",minOverlayTransitionY+"");
-        Log.d("translate===",ScrollUtils.getFloat(-scrollY, minOverlayTransitionY, 0)+"");
         mOverlayView.setTranslationY( ScrollUtils.getFloat(-scrollY, minOverlayTransitionY, 0));
         mImageView.setTranslationY( ScrollUtils.getFloat(-scrollY , minOverlayTransitionY, 0));
 
@@ -132,11 +146,17 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
         mTitleView.setPivotX( 0);
         mTitleView.setPivotY( 0);
         mTitleView.setScaleX( scale);
-        mTitleView.setScaleY( scale);
-
+        mTitleView.setScaleY(scale);
+        Log.d("flexibleRange==", flexibleRange + "");
+        Log.d("scrollY==", scrollY + "");
+        Log.d("scale==", scale + "");
         // Translate title text
-        int maxTitleTranslationY = (int) (mFlexibleSpaceImageHeight - mTitleView.getHeight() * scale);
-        int titleTranslationY = maxTitleTranslationY - scrollY>0?maxTitleTranslationY - scrollY:0;
+        int maxTitleTranslationY = (int) (mFlexibleSpaceImageHeight- mTitleView.getHeight() * scale);
+        int titleTranslationY = maxTitleTranslationY - scrollY>getStatusBarHeight()?maxTitleTranslationY - scrollY:getStatusBarHeight();
+
+        Log.d("maxTitleTranslationY==",maxTitleTranslationY+"");
+       Log.d("titleTranslationY==",titleTranslationY+"");
+
         mTitleView.setTranslationY(titleTranslationY);
 
         // Translate FAB
