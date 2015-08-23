@@ -101,5 +101,7 @@
         <attr name="android:textSize" />
         <attr name="android:textColor" />
     </declare-styleable>
-
+    <declare-styleable name="ScrimInsetsView">
+        <attr name="insetFoeground" format="reference|color" />
+    </declare-styleable>
 </resources>

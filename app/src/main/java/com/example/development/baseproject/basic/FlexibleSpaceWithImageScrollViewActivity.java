@@ -37,6 +37,10 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flexiblespacewithimagescrollview);
+       // getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+
+
         mToolbarView = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbarView);
         // Set the padding to match the Status Bar height
@@ -120,7 +124,7 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
         mImageView.setTranslationY( ScrollUtils.getFloat(-scrollY , minOverlayTransitionY, 0));
 
         // Change alpha of overlay
-        mOverlayView.setAlpha( ScrollUtils.getFloat((float) scrollY / flexibleRange, 0, 1));
+       // mOverlayView.setAlpha( ScrollUtils.getFloat((float) scrollY / flexibleRange, 0, 1));
        // mToolbarView.setAlpha( ScrollUtils.getFloat((float) scrollY / mFlexibleSpaceImageHeight, 0, 1));
 
         // Scale title text
