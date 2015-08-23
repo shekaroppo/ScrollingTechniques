@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -38,6 +39,9 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
         setContentView(R.layout.activity_flexiblespacewithimagescrollview);
         mToolbarView = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbarView);
+        // Set the padding to match the Status Bar height
+        //mToolbarView.setPadding(0, getStatusBarHeight(), 0, 0);
+
         mImageView = findViewById(R.id.image);
         mOverlayView = findViewById(R.id.overlay);
         mScrollView = (ObservableScrollView) findViewById(R.id.scroll);
@@ -86,6 +90,15 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
             }
         });
     }
+    // A method to find height of the status bar
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
     protected int getActionBarSize() {
         TypedValue typedValue = new TypedValue();
         int[] textSizeAttr = new int[]{R.attr.actionBarSize};
@@ -100,12 +113,15 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
         // Translate overlay and image
         float flexibleRange = mFlexibleSpaceImageHeight - mActionBarSize;
         int minOverlayTransitionY = mActionBarSize - mOverlayView.getHeight();
+        Log.d("-scrollY===",-scrollY+"");
+        Log.d("minOverlayTY===",minOverlayTransitionY+"");
+        Log.d("translate===",ScrollUtils.getFloat(-scrollY, minOverlayTransitionY, 0)+"");
         mOverlayView.setTranslationY( ScrollUtils.getFloat(-scrollY, minOverlayTransitionY, 0));
-        mImageView.setTranslationY( ScrollUtils.getFloat(-scrollY / 2, minOverlayTransitionY, 0));
+        mImageView.setTranslationY( ScrollUtils.getFloat(-scrollY , minOverlayTransitionY, 0));
 
         // Change alpha of overlay
         mOverlayView.setAlpha( ScrollUtils.getFloat((float) scrollY / flexibleRange, 0, 1));
-        mToolbarView.setAlpha( ScrollUtils.getFloat((float) scrollY / flexibleRange, 0, 1));
+       // mToolbarView.setAlpha( ScrollUtils.getFloat((float) scrollY / mFlexibleSpaceImageHeight, 0, 1));
 
         // Scale title text
         float scale = 1 + ScrollUtils.getFloat((flexibleRange - scrollY) / flexibleRange, 0, MAX_TEXT_SCALE_DELTA);
