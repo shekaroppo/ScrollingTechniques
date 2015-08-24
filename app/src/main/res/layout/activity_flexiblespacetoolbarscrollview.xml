@@ -48,13 +48,13 @@
         android:id="@+id/flexible_space"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/error_color" />
+        android:background="@color/primary" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/accent"
+        android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
         app:theme="@style/Toolbar" />
@@ -76,7 +76,7 @@
             android:gravity="center_vertical"
             android:maxLines="1"
             android:minHeight="?attr/actionBarSize"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@android:color/white"
             android:textSize="20sp" />
 
         <LinearLayout
@@ -87,7 +87,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@android:color/holo_green_dark" />
+                android:background="@android:color/transparent" />
 
             <View
                 android:layout_width="match_parent"
