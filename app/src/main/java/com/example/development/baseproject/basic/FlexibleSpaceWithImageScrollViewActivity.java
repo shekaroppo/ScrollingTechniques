@@ -2,6 +2,7 @@
 package com.example.development.baseproject.basic;
 
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -59,6 +60,19 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+        if (mToolbarView != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(Color.TRANSPARENT);
+                getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                mToolbarView.setPadding(0, getStatusBarHeight(), 0, 0);
+            }
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("");
         }
 
 //        Window window = getWindow();
@@ -161,10 +175,19 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
         mTitleView.setPivotY(0);
         mTitleView.setScaleX(scale);
         mTitleView.setScaleY(scale);
-        Log.d("flexibleRange==", flexibleRange + "");
-        Log.d("scrollY==", scrollY + "");
-        Log.d("scale==", scale + "");
-        Log.d("min==", (flexibleRange - scrollY) / flexibleRange + "");
+
+        double alpha = (1 - (((double) flexibleRange - (double) scrollY) / (double) flexibleRange)) * 255.0;
+        alpha = alpha < 0 ? 0 : alpha;
+        alpha = alpha > 100 ? 100 : alpha;
+        Log.d("alpha==", alpha + "");
+        float scrollRatio = (float) (alpha / 100);
+        getWindow().setStatusBarColor(getAlphaColor(Color.TRANSPARENT,scrollRatio));
+
+
+//        Log.d("flexibleRange==", flexibleRange + "");
+//        Log.d("scrollY==", scrollY + "");
+//        Log.d("scale==", scale + "");
+//        Log.d("min==", (flexibleRange - scrollY) / flexibleRange + "");
 
         // Translate title text
         int maxTitleTranslationY = (int) (mFlexibleSpaceImageHeight - mTitleView.getHeight() * scale);
@@ -196,6 +219,9 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
         } else {
             showFab();
         }
+    }
+    private int getAlphaColor(int color, float scrollRatio) {
+        return Color.argb((int) (scrollRatio * 100f), Color.red(color), Color.green(color), Color.blue(color));
     }
 
     @Override

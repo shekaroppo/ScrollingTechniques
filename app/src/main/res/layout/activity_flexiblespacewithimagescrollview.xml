@@ -47,7 +47,7 @@
         android:minHeight="?attr/actionBarSize"
         app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
         app:theme="@style/Toolbar"
-        android:fitsSystemWindows="true"/>
+      />
 
     <LinearLayout
         android:layout_width="match_parent"
