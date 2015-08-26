@@ -11,8 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.development.baseproject.R;
@@ -34,8 +37,8 @@ public class PocketCastScrollTechnique extends BaseActivity implements Observabl
     ImageView mImageView;
     @Bind(R.id.scroll)
     ObservableScrollView mScrollView;
-//    @Bind(R.id.title)
-//    TextView mTitleView;
+    @Bind(R.id.toolbar_title)
+    TextView mToolbarTitle;
     @Bind(R.id.fab)
     FloatingActionButton mFab;
     @Bind(R.id.toolbar)
@@ -67,29 +70,29 @@ public class PocketCastScrollTechnique extends BaseActivity implements Observabl
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        if (mToolbarView != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(Color.TRANSPARENT);
-                getWindow().getDecorView().setSystemUiVisibility(
-                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                mToolbarView.setPadding(0, getStatusBarHeight(), 0, 0);
-            }
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("");
-        }
+//        if (mToolbarView != null) {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                getWindow().setStatusBarColor(Color.TRANSPARENT);
+//                getWindow().getDecorView().setSystemUiVisibility(
+//                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+//            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//                mToolbarView.setPadding(0, getStatusBarHeight(), 0, 0);
+//            }
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setTitle("");
+//        }
 
-//        Window window = getWindow();
-//
-//// clear FLAG_TRANSLUCENT_STATUS flag:
-//        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//
-//// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
-//        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-//
-//// finally change the color
-//        window.setStatusBarColor(Color.TRANSPARENT);
+        Window window = getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        window.setStatusBarColor(getResources().getColor(R.color.primary_dark));
 
 
      //   mTitleView.setText(getTitle());
@@ -98,7 +101,7 @@ public class PocketCastScrollTechnique extends BaseActivity implements Observabl
 
         mFlexibleSpaceImageHeight = getResources().getDimensionPixelSize(R.dimen.flexible_space_image_height);
         mFlexibleSpaceShowFabOffset = getResources().getDimensionPixelSize(R.dimen.flexible_space_show_fab_offset);
-        mActionBarSize = getActionBarSize() + getStatusBarHeight();
+        mActionBarSize = getActionBarSize() ;
 
         mScrollView.setScrollViewCallbacks(this);
 
@@ -197,10 +200,12 @@ public class PocketCastScrollTechnique extends BaseActivity implements Observabl
 
         double alpha = (1 - (((double) flexibleRange - (double) scrollY) / (double) flexibleRange)) * 255.0;
         alpha = alpha < 0 ? 0 : alpha;
-        alpha = alpha > 100 ? 100 : alpha;
+        alpha = alpha > 255 ? 255 : alpha;
         Log.d("alpha==", alpha + "");
-        float scrollRatio = (float) (alpha / 100);
-        getWindow().setStatusBarColor(getAlphaColor(Color.TRANSPARENT,scrollRatio));
+
+        float scrollRatio = (float) (alpha / 255);
+        mToolbarTitle.setAlpha(scrollRatio);
+        //getWindow().setStatusBarColor(getAlphaColor(Color.TRANSPARENT,scrollRatio));
 
 
 //        Log.d("flexibleRange==", flexibleRange + "");
@@ -240,7 +245,7 @@ public class PocketCastScrollTechnique extends BaseActivity implements Observabl
         }
     }
     private int getAlphaColor(int color, float scrollRatio) {
-        return Color.argb((int) (scrollRatio * 100f), Color.red(color), Color.green(color), Color.blue(color));
+        return Color.argb((int) (scrollRatio * 255f), Color.red(color), Color.green(color), Color.blue(color));
     }
 
     @Override

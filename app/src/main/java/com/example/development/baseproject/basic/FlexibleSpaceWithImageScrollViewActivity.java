@@ -11,6 +11,7 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Menu;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -240,6 +241,11 @@ public class FlexibleSpaceWithImageScrollViewActivity extends BaseActivity imple
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
     private void hideFab() {
         if (mFabIsShown) {
             mFab.animate().cancel();

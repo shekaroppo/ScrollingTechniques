@@ -77,5 +77,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left|top"
+        android:elevation="6dp"
+        app:borderWidth="0dp"
+        android:src="@drawable/ic_action_tick"
         android:scaleType="center" />
 </FrameLayout>
